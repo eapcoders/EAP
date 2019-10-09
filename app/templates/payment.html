@@ -1,40 +1,61 @@
 {% extends "base.html" %}
 
 {% block head %}
-   <style>
-       label {
-          width: 200px;
-          font-weight: bold;
-          color:black;
-       }
-   </style>
+<style>
+    label {
+        width: 200px;
+        font-weight: bold;
+        color: black;
+    }
+</style>
+<script src="/static/js/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var val = {{ item.price }
+    };
+
+        var temp = val
+
+                $("#gogreen").click(function() {
+                    if ($("input[type=checkbox]").is(
+                        ":checked")) {
+                        temp = Math.ceil(val);
+                    } else {
+                        temp = val;
+                    }
+                });
+            });
+</script>
 
 {% endblock %}
 {% block container %}
-   <h4>Payment </h4>
-       <div class="">
-          <span>
-            <img src="/{{item.item_image}}" alt="August 2019" class="left" width="150px" height="100px"> 
-          </span>
-          <span>
-            {{item.item_name}}
-          </span>
-          <span>
-            {{item.item_price}}
-          </span>
-          <span>
-            {{item.carbon_credits}}
-          </span>                 
-       </div>
-       <div>
-            <label><input type="checkbox" name="green" value="green" checked>Go Green</label><br /> 
-            <label>Total Price:</label>{{item.price}} <br />
-            <label>Total Carbon Credits: </label><br /> 
-            <input type="submit"  value="Place Order" />    
-       </div>
-   <br style="clear:both">"
+
+
+<h4>Payment </h4>
+<div class="">
+    <span>
+        <img src="/{{item.item_image}}" alt="August 2019" class="left" width="150px" height="100px">
+    </span>
+    <span>
+        {{item.item_name}}
+    </span>
+    <span>
+        {{item.item_price}}
+    </span>
+    <span>
+        {{item.carbon_credits}}
+    </span>
+</div>
+<div>
+    <label><input id ="gogreen" type="checkbox" name="green" value="green" checked>Go Green</label><br />
+    <label>Total Prices:</label><span> temp</span> <br />
+    <label>Total Carbon Credits: </label><br />
+    <input type="submit" value="Place Order" />
+</div>
+<br style="clear:both">"
 {% endblock %}
 
-   
+
 
 
