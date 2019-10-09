@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^recycle/', view.recycle),
     url(r'^dbmall/', view.dbmall),
     url(r'^reports/', view.reports),
+    url(r'^transactions/', view.transactions),
     url(r'^investments/', view.investments),
     url(r'^transfer-credit/', view.transfer_credit),
     url(r'^go-green-kitty/', view.go_green_kitty),

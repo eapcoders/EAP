@@ -122,4 +122,25 @@ def transfer_credit(request):
 
 def buy(request, item_id=None):
     item = get_object_or_404(Items, id=item_id)
-    return render(request, 'payment.html', {'item': item})
+    user = UserProfile.objects.get(user=request.user)
+    total_carbon_credit = user.credit_balance - item.carbon_credits
+    user.credit_balance = total_carbon_credit
+    user.save()
+    if request.POST:
+        obj = Transactions()
+        obj.item = item
+        obj.qty = 1
+        obj.total_price = item.item_price * obj.qty
+        obj.rounded_price = int(request.POST.get('total_price'))
+        obj.green_amount = obj.rounded_price - obj.total_price
+        obj.green_points = 0
+        obj.user_profile = user
+        obj.save() 
+        return HttpResponseRedirect('/transactions/') 
+    return render(request, 'payment.html', {'item': item, "total_carbon_credit":total_carbon_credit})
+
+
+def transactions(request):
+    user = UserProfile.objects.get(user=request.user) 
+    trans = Transactions.objects.filter(user_profile=user)
+    return render(request, 'trans.html', {'trans': trans})
