@@ -33,6 +33,8 @@
 
     $(document).ready(function () {
         var temp = {{ item.item_price }};
+                    $('#price').text(temp);
+                    $('#total').val(temp);
                     $("#gogreen").click(function() {
                     if ($("input[type=checkbox]").is(
                         ":checked")) {
