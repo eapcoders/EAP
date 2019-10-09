@@ -7,23 +7,41 @@
         font-weight: bold;
         color: black;
     }
+    span { 
+          color: black;
+          width: 200px;
+          height: 200px;
+   }
+   .left {
+       float: left;
+       width: 200px;
+   }
+   table tr {
+      border:1px solid #000;
+   }
+   td {
+       color: black;
+       font-color: #000;
+       boder:1px solid #000;
+       padding:5px;
+       text-align:center;
+       width:200px; 
+    }
 </style>
 <script src="/static/js/jquery.min.js"></script>
 <script>
 
     $(document).ready(function () {
-        var val = {{ item.price }
-    };
-
-        var temp = val
-
-                $("#gogreen").click(function() {
+        var temp = {{ item.item_price }};
+                    $("#gogreen").click(function() {
                     if ($("input[type=checkbox]").is(
                         ":checked")) {
-                        temp = Math.ceil(val);
+                        temp = Math.ceil(temp);
                     } else {
-                        temp = val;
+                        temp = temp;
                     }
+                    $('#price').text(temp);
+                    $('#total').val(temp);
                 });
             });
 </script>
@@ -33,25 +51,46 @@
 
 
 <h4>Payment </h4>
-<div class="">
-    <span>
-        <img src="/{{item.item_image}}" alt="August 2019" class="left" width="150px" height="100px">
-    </span>
-    <span>
-        {{item.item_name}}
-    </span>
-    <span>
-        {{item.item_price}}
-    </span>
-    <span>
-        {{item.carbon_credits}}
-    </span>
-</div>
 <div>
-    <label><input id ="gogreen" type="checkbox" name="green" value="green" checked>Go Green</label><br />
-    <label>Total Prices:</label><span> temp</span> <br />
-    <label>Total Carbon Credits: </label><br />
-    <input type="submit" value="Place Order" />
+    <form action="/buy-item/{{item.id}}/" method="post" enctype="multipart/form-data">
+    <table>{% csrf_token %}
+       <tr>
+       <td> <img src="/{{item.item_image}}" alt="August 2019" class="left" width="150px" height="100px">
+       </td>
+       <td> 
+        Name <br >
+        {{item.item_name}}
+       </td>
+       <td>
+        Amount <br />{{item.item_price}}
+       </td>
+       <td>
+        Carbon Credit: <br/ > {{item.carbon_credits}}
+       </td>
+      </tr>
+    
+      <tr> 
+       <td> 
+         <label><input id ="gogreen" type="checkbox" name="green" value="green" checked>Go Green</label><br />
+       </td>
+       </tr>
+       <tr>
+       <td>
+        <label>Total Prices:</label><span id="price">{{item.item_price}}</span><input type="hidden" name="total_price" id="total" />
+       </td>
+       </tr>
+       <tr>
+       <td>
+      <label>Total Carbon Credits: </label><span id="carbon">{{total_carbon_credit}}</span><br />
+       </td>
+       </tr>
+       <tr>
+       <td>
+       <input type="submit" value="Place Order" />
+       </td> 
+       </tr>
+    </table>
+    </form>
 </div>
 <br style="clear:both">"
 {% endblock %}
