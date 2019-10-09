@@ -44,14 +44,17 @@ def about_us(request):
     context = {}
     return render(request, 'about_us.html', context)
 
+@login_required
 def flight_booking(request):
     context = {}
     return render(request, 'flight_booking.html', context)
 
+@login_required
 def train_booking(request):
     context = {}
     return render(request, 'train_booking.html', context)
 
+@login_required
 def bus_booking(request):
     context = {}
 
@@ -59,30 +62,37 @@ def bus_booking(request):
     
     return render(request, 'bus_booking.html', context)
 
+@login_required
 def fertilizers(request):
     context = {}
     return render(request, 'fertilizers.html', context)
 
+@login_required
 def fuel(request):
     context = {}
     return render(request, 'fuel.html', context)
 
+@login_required
 def recycle(request):
     context = {}
     return render(request, 'recycle.html', context)
 
+
+@login_required
 def go_green_kitty(request):
     trans = Transactions.objects.aggregate(total_price=Sum('green_amount'))
     prjs = Project.objects.all()
     context = {'trans': trans, 'prjs': prjs}
     return render(request, 'green_kitty.html', context)
 
+@login_required
 def reports(request):
     trans = Transactions.objects.aggregate(total_price=Sum('green_amount'))
     prjs = Project.objects.all()
     context = {'trans': trans, 'prjs': prjs}
     return render(request, 'green_kitty.html', context)
 
+@login_required
 def investments(request):
     trans = Transactions.objects.aggregate(total_price=Sum('green_amount'))
     context = {'trans': trans}
@@ -100,12 +110,14 @@ def investments(request):
         return HttpResponseRedirect('/go-green-kitty/')
     return render(request, 'invest.html', context)
 
+@login_required
 def dbmall(request):
     print ("request ", request)
     items = Items.objects.all()
     context = {'items': items}
     return render(request, 'dbmall.html', context)
 
+@login_required
 def transfer_credit(request):
     user = UserProfile.objects.get(user=request.user)
     context = {'user': user, 'user_profiles': UserProfile.objects.exclude(user=request.user)}
@@ -121,6 +133,7 @@ def transfer_credit(request):
 
     return render(request, 'transfer_credit.html', context)
 
+@login_required
 def buy(request, item_id=None):
     item = get_object_or_404(Items, id=item_id)
     user = UserProfile.objects.get(user=request.user)
@@ -140,7 +153,7 @@ def buy(request, item_id=None):
         return HttpResponseRedirect('/transactions/') 
     return render(request, 'payment.html', {'item': item, "total_carbon_credit":total_carbon_credit})
 
-
+@login_required
 def transactions(request):
     user = UserProfile.objects.get(user=request.user) 
     trans = Transactions.objects.filter(user_profile=user)
