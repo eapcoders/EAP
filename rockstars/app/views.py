@@ -51,6 +51,9 @@ def train_booking(request):
 
 def bus_booking(request):
     context = {}
+
+    print ("request ", request.POST)
+    
     return render(request, 'bus_booking.html', context)
 
 def fertilizers(request):
@@ -68,3 +71,15 @@ def recycle(request):
 def green_invst_kitty(request):
     context = {}
     return render(request, 'green_kitty.html', context)
+
+
+def transfer_credit(request):
+    context = {'user': request.user, 'user_profiles': UserProfile.objects.exclude(user=request.user)}
+    if request.POST:
+        account_number = request.POST.get('account')
+        amount = request.POST.get('amount')
+        up = UserProfile.objects.get(account_number=account_number) 
+        up.amount = up.amount + amount
+        up.save()
+
+    return render(request, 'transfer_credit.html', context)

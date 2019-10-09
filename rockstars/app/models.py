@@ -16,4 +16,13 @@ class UserProfile(models.Model):
     credit_balance = models.IntegerField(default=500)
 
 
+class FlightDetails(models.Model):
+    flight_id = models.CharField(max_length=150)
+    fuel_burn = models.CharField(max_length=150)
+    flight_from = models.CharField(max_length=150)
+    flight_to = models.CharField(max_length=150)
+    price = models.CharField(max_length=150)
+    start_date = models.DateField()
+    return_date = models.DateField()
+
 

@@ -32,7 +32,9 @@
 <body>
 	<h1>Bus Ticket Booking</h1>
 	<div class="main-agileinfo">
-						<form action="#" method="post">
+						
+                                                <form action="/bus-booking/" method="post" enctype="multipart/form-data">
+                                                 {% csrf_token %}
 							<div class="from">
 								<h3>Orgin</h3>
 								<input type="text" name="orgin" class="city1" placeholder="Type Departure City" required="">
@@ -45,17 +47,17 @@
 							<div class="date">
 								<div class="depart">
 									<h3>Date</h3>
-									<input  id="datepicker" name="Text" type="text" value="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
+									<input  id="datepicker" name="date" type="text" value="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
 								</div>
 							</div>
 							<!--<div class="class">
 								<h3>Class</h3>
-								<select id="w3_country1" onchange="change_country(this.value)" class="frm-field required">
-									<option value="null">AC First Class</option>  
-									<option value="null">AC 2 Tier</option>   
-									<option value="null">AC 3 Tier</option>   
-									<option value="null">First Class</option> 
-                                                                        <option value="null">Sleeper Class</option>   						
+								<select id="class" name="class" onchange="change_country(this.value)" class="frm-field required">
+									<option value="ac1">AC First Class</option>  
+									<option value="ac2">AC 2 Tier</option>   
+									<option value="ac3">AC 3 Tier</option>   
+									<option value="fc">First Class</option> 
+                                                                        <option value="sl">Sleeper Class</option>   						
 								</select>
 
 							</div>
@@ -68,6 +70,7 @@
 											<div class="entry value-minus">&nbsp;</div>
 											<div class="entry value"><span>1</span></div>
 											<div class="entry value-plus active">&nbsp;</div>
+                                                                                       
 										</div>
 									</div>
 								</div>
