@@ -5,6 +5,7 @@
 from __future__ import unicode_literals
 from django.conf import settings
 from django.shortcuts import render
+from decimal import *
 
 import json
 import smtplib
@@ -131,7 +132,7 @@ def buy(request, item_id=None):
         obj.item = item
         obj.qty = 1
         obj.total_price = item.item_price * obj.qty
-        obj.rounded_price = int(request.POST.get('total_price'))
+        obj.rounded_price = Decimal(request.POST.get('total_price'))
         obj.green_amount = obj.rounded_price - obj.total_price
         obj.green_points = 0
         obj.user_profile = user

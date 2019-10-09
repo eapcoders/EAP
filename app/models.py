@@ -29,16 +29,16 @@ class Items(models.Model):
     item_id = models.CharField(max_length=150)
     item_name = models.CharField(max_length=150)
     item_image = models.ImageField(upload_to='static/image/item')
-    item_price = models.IntegerField() 
+    item_price = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=10) 
     carbon_credits = models.IntegerField()
 
 class Transactions(models.Model):
     item = models.ForeignKey(Items, related_name="db_user",on_delete=models.CASCADE)
     qty = models.IntegerField()
-    total_price = models.IntegerField()
-    rounded_price = models.IntegerField()  
-    green_amount = models.IntegerField()
-    green_points = models.IntegerField() 
+    total_price = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=10)
+    rounded_price = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=10)
+    green_amount = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=10)
+    green_points = models.IntegerField()
     user_profile = models.ForeignKey(UserProfile, related_name="user_profile",on_delete=models.CASCADE) 
 
 class Project(models.Model):
