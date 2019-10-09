@@ -25,7 +25,7 @@ SECRET_KEY = 'kjhe#@qfg)$&m=w81go-mrn0kj3&ey!yrwsbh8m*5y&_5&o#x-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dbgreen-eap.azurewebsites.net']
+#ALLOWED_HOSTS = ['dbgreen-eap.azurewebsites.net']
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = '/login/'
 
@@ -84,25 +84,11 @@ STATICFILES_DIRS = [
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-    # 'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
-# }
-
 DATABASES = {
-'default': {
-'ENGINE': 'django.db.backends.mysql',
-'NAME': 'dbgreen_eap',
-'USER': 'eapdatauser@dbgreen-eap-database',
-'PASSWORD': 'E@p#2019',
-'HOST': 'dbgreen-eap-database.mysql.database.azure.com',
-'PORT': '3306',
-'OPTIONS': {
-'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-}
-}
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 # Password validation
