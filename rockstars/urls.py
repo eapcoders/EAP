@@ -38,8 +38,10 @@ urlpatterns = [
     url(r'^fertilizers/', view.fertilizers),
     url(r'^recycle/', view.recycle),
     url(r'^dbmall/', view.dbmall),
+    url(r'^reports/', view.reports),
+    url(r'^investments/', view.investments),
     url(r'^transfer-credit/', view.transfer_credit),
-    url(r'^green-invst-kitty/', view.green_invst_kitty),
+    url(r'^go-green-kitty/', view.go_green_kitty),
     re_path('login/', auth_views.LoginView.as_view(), {
         'template_name': "registration/login.html"},
         name='login'),

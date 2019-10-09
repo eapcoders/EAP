@@ -30,13 +30,22 @@ class Items(models.Model):
     item_name = models.CharField(max_length=150)
     item_image = models.ImageField(upload_to='static/image/item')
     item_price = models.IntegerField() 
-    #carbon_credits = models.IntegerField()
+    carbon_credits = models.IntegerField()
 
-class Teansactions(models.Model):
+class Transactions(models.Model):
     item = models.ForeignKey(Items, related_name="db_user",on_delete=models.CASCADE)
     qty = models.IntegerField()
     total_price = models.IntegerField()
     rounded_price = models.IntegerField()  
     green_amount = models.IntegerField()
     green_points = models.IntegerField() 
-    user_profile = models.ForeignKey(UserProfile, related_name="user_profile",on_delete=models.CASCADE)   
+    user_profile = models.ForeignKey(UserProfile, related_name="user_profile",on_delete=models.CASCADE) 
+
+class Project(models.Model):
+    project_name = models.CharField(max_length=150)
+    category = models.CharField(max_length=150)
+    region = models.CharField(max_length=150)
+    amount = models.IntegerField(default=500)
+
+
+   
