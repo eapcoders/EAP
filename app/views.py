@@ -21,10 +21,12 @@ from django.views.generic import TemplateView
 from datetime import date, datetime
 
 from calendar import monthrange
-from .models import UserProfile, Items
+from .models import UserProfile, Items, Transactions, Project
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
+from django.db.models import Sum
+
 
 @login_required
 def home(request):
@@ -68,9 +70,34 @@ def recycle(request):
     context = {}
     return render(request, 'recycle.html', context)
 
-def green_invst_kitty(request):
-    context = {}
+def go_green_kitty(request):
+    trans = Transactions.objects.aggregate(total_price=Sum('green_amount'))
+    prjs = Project.objects.all()
+    context = {'trans': trans, 'prjs': prjs}
     return render(request, 'green_kitty.html', context)
+
+def reports(request):
+    trans = Transactions.objects.aggregate(total_price=Sum('green_amount'))
+    prjs = Project.objects.all()
+    context = {'trans': trans, 'prjs': prjs}
+    return render(request, 'green_kitty.html', context)
+
+def investments(request):
+    trans = Transactions.objects.aggregate(total_price=Sum('green_amount'))
+    context = {'trans': trans}
+    if request.POST:
+        prj_name = request.POST.get('prj_name')
+        amount = request.POST.get('amount') 
+        category = request.POST.get('category')
+        region = request.POST.get('region')
+        prj_obj = Project()
+        prj_obj.project_name = prj_name
+        prj_obj.category = category
+        prj_obj.region = region
+        prj_obj.amount = int(amount)
+        prj_obj.save()        
+        return HttpResponseRedirect('/go-green-kitty/')
+    return render(request, 'invest.html', context)
 
 def dbmall(request):
     print ("request ", request)
