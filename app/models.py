@@ -25,4 +25,18 @@ class FlightDetails(models.Model):
     start_date = models.DateField()
     return_date = models.DateField()
 
+class Items(models.Model):
+    item_id = models.CharField(max_length=150)
+    item_name = models.CharField(max_length=150)
+    item_image = models.ImageField(upload_to='static/image/item')
+    item_price = models.IntegerField() 
 
+
+class Teansactions(models.Model):
+    item = models.ForeignKey(Items, related_name="db_user",on_delete=models.CASCADE)
+    qty = models.IntegerField()
+    total_price = models.IntegerField()
+    rounded_price = models.IntegerField()  
+    green_amount = models.IntegerField()
+    green_points = models.IntegerField() 
+    user_profile = models.ForeignKey(UserProfile, related_name="user_profile",on_delete=models.CASCADE)   
