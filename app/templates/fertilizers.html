@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block head %}
+   <style>
+       label {
+          width: 200px;
+          font-weight: bold;
+       }
+   </style>
+
+{% endblock %}
+{% block container %}
+   <h4>Fertilizers</h4>
+   <div style="width:650px;float:left;padding:5px;color:black;text-align:justify;margin-right:20px;">
+       <div class="">
+             <form>
+                <label>Name: </label><select name="fertilizers">
+                        <option value="-1">Select</option>
+    			<option value="plant_o_boost">Plant O Boost</option>
+    			<option value="toprose">TopRose</option>
+    			<option value="growtabbs">GrowTabbs</option>
+   			<option value="biogrow">BioGrow</option>
+  		</select><br />
+             
+                <label>Phone:</label> <input type='text'  class='input-text input-pin'  name='phone' id='phone'  pattern='[0-9]+' placeholder='Enter Phone' /><br />
+                <label>Qty: </label> <input type='text'  class='input-text input-pin'  name='qty' id='qty'  pattern='[0-9]+' placeholder='Enter Qty' /><br />
+                <hr />
+                <label>Amount: </label><br />
+                <label>Delivery Fee: </label><br />
+                <label>GST: </label><br />
+                <input type="submit" value="Submit" />
+             </form>
+       </div>
+   </div>
+   <div style="width:400px;border:1px solid #2C2424;float:left;padding:5px;;color:black;">
+            <h6 style="background-color:#2C2424;color:white;padding:5px;">Useful links</h4>
+            <a href="/flight-booking/">Flight Booking</a><br />
+            <a href="/train-booking/">Train Booking</a><br />
+            <a href="/bus-booking/">Bus Booking</a><br />
+            <a href="/fertilizers/">Fertilizer</a><br />
+            <a href="/green-invst-kitty/">Manage green investmet kitty</a> 
+   </div>
+   <br style="clear:both">"
+{% endblock %}
+
+   
+
+
