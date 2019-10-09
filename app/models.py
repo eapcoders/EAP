@@ -30,7 +30,7 @@ class Items(models.Model):
     item_name = models.CharField(max_length=150)
     item_image = models.ImageField(upload_to='static/image/item')
     item_price = models.IntegerField() 
-
+    carbon_credits = models.IntegerField()
 
 class Teansactions(models.Model):
     item = models.ForeignKey(Items, related_name="db_user",on_delete=models.CASCADE)

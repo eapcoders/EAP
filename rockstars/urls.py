@@ -33,9 +33,11 @@ urlpatterns = [
     url(r'^flight-booking/', view.flight_booking),
     url(r'^train-booking/', view.train_booking),
     url(r'^bus-booking/', view.bus_booking),
+    url('^buy-item/(?P<item_id>\d+)/$', view.buy),
     url(r'^fuel/', view.fuel),
     url(r'^fertilizers/', view.fertilizers),
     url(r'^recycle/', view.recycle),
+    url(r'^dbmall/', view.dbmall),
     url(r'^transfer-credit/', view.transfer_credit),
     url(r'^green-invst-kitty/', view.green_invst_kitty),
     re_path('login/', auth_views.LoginView.as_view(), {

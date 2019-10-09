@@ -21,7 +21,7 @@ from django.views.generic import TemplateView
 from datetime import date, datetime
 
 from calendar import monthrange
-from .models import UserProfile
+from .models import UserProfile, Items
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
@@ -72,6 +72,11 @@ def green_invst_kitty(request):
     context = {}
     return render(request, 'green_kitty.html', context)
 
+def dbmall(request):
+    print ("request ", request)
+    items = Items.objects.all()
+    context = {'items': items}
+    return render(request, 'dbmall.html', context)
 
 def transfer_credit(request):
     user = UserProfile.objects.get(user=request.user)
@@ -87,3 +92,7 @@ def transfer_credit(request):
         return HttpResponseRedirect('/') 
 
     return render(request, 'transfer_credit.html', context)
+
+def buy(request, item_id=None):
+    item = get_object_or_404(Items, id=item_id)
+    return render(request, 'payment.html', {'item': item})
