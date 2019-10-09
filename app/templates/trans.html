@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 {% extends "base.html" %}
 
 {% block head %}
@@ -53,59 +53,3 @@
    
 
 
-=======
-{% extends "base.html" %}
-
-{% block head %}
-   <style>
-       label {
-          width: 200px;
-          font-weight: bold;
-       }
-       table {
-          border:1px solid #ddd;
-          width:70%;
-       }
-       table tr, td , th{
-          border:1px solid #ddd;
-          padding:5px;
-       } 
-   </style>
-
-{% endblock %}
-{% block container %}
-   <h4>Go Green Kitty</h4>
-   <div style="padding:5px;color:black;text-align:justify;margin-right:20px;">
-       <div class="">
-             <table>
-                <tr>
-                   <th>Transaction Id</th>
-                   <th>User ID</th>
-                   <th>Item Id</th>
-                   <th>Qty</th>
-                   <th>Total Price</th>
-                   <th>Rounded Price</th>
-                   <th>Donated Amount</th> 
-                </tr>
-                {% for x in trans %}
-                <tr>
-                   <td>{{x.id}}</td>
-                   <td>{{x.user_profile.account_name}}</td>
-                   <td>{{x.item.item_name}}</td>
-                   <td>{{x.qty}}</td>
-                   <td>{{x.total_price}}</td>
-                   <td>{{x.rounded_price}}</td>
-                   <td>{{x.green_amount}}</td>
-                </tr>
-                {% endfor %}
-             </table>
-             <a href="/">OK</a>
-       </div>
-   </div>
-   <br style="clear:both">"
-{% endblock %}
-
-   
-
-
->>>>>>> 9ad087dfb6a2fc2dcd756509cc86baddba8f3e26
