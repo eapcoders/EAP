@@ -30,7 +30,7 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = '/login/'
 
 # Application definition
-
+ALLOWED_HOSTS = [os.environ['WEBSITE_SITE_NAME'] + '.azurewebsites.net', '127.0.0.1'] if 'WEBSITE_SITE_NAME' in os.environ else []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
