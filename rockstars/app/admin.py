@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import UserProfile
+from .models import UserProfile, FlightDetails
 
 
 from django.contrib.admin import AdminSite
@@ -16,3 +16,4 @@ AdminSite.index_title = ugettext_lazy('EAP ADMINISTRATION')
 
 
 admin.site.register(UserProfile)
+admin.site.register(FlightDetails)
