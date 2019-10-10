@@ -36,8 +36,10 @@ def home(request):
     month = datetime.now().strftime("%m")
     year = datetime.now().strftime("%Y")
     day = datetime.now().strftime("%d")
+    bids = Bid.objects.exclude(bid_user=user_profile, bidder='N')
+    min_amt = min(user_profile.credit_balance, bids[0].bid_qty)
     print ("day ", day)
-    context.update({'user_profile': user_profile})
+    context.update({'user_profile': user_profile,'bids':bids,'min_amt':min_amt})
     return render(request, 'index.html', context)
 
 def about_us(request):
@@ -170,6 +172,16 @@ def bid(request):
         prj_obj.bid_user = user
         prj_obj.bidder = 'Y'
         prj_obj.save()
+        sellers = UserProfile.objects.filter(credit_balance__gte=0).exclude(bid_user=user)
+        for x in sellers:
+            prj_obj = Bid()
+            prj_obj.bid_qty = bid_qty
+            prj_obj.price = Decimal(bid_price)
+            prj_obj.amount = Decimal(bid_amount)
+            prj_obj.bid_user = x.user
+            prj_obj.bidder = 'N'
+            prj_obj.save() 
+
         return HttpResponseRedirect('/')
 
     return render(request, 'bid.html', context)

@@ -6,8 +6,12 @@
           width: 200px;
           font-weight: bold;
        }
+       table, td, tr {
+           border: 1px solid #000;
+           padding:5px;
+       }
    </style>
-
+   
 {% endblock %}
 {% block container %}
    <h4>Welcome to DBOI Pune</h4>
@@ -33,7 +37,28 @@
             -->
             <a href="/transfer-credit/">Transfer Carbon Credits</a>
             <br /><a href="/bid/">Bid Carbon Credits</a>
- 
+            <hr />
+            <form action="/accept-bid/" method="post" enctype="multipart/form-data">
+                   {% csrf_token %}
+
+            {% if bids %}
+            Available Bids
+            <table> 
+            <tr><th>Bidder</th><th>Bid Qty</th><th>Bid Price</th><th>Accept Qty</th><th>Accept Amount</th></tr>
+            {% for x in bids %}
+             <tr>
+             <td>{{x.bid_user.account_name}}</td>
+             <td>{{x.bid_qty}}</td>
+             <td>{{x.price}}</td>
+             <td><input type="text" name="accept_qty" size=4 value=""></td>
+             <td><a href="/">Accept Bid</a></td>
+             <td>{{x.amount}}</td>
+             
+             </tr>
+            {% endfor %}
+           {% endif %}
+            </form>
+          </table>
    </div>
    <br style="clear:both">"
 {% endblock %}
