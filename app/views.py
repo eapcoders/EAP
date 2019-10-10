@@ -36,6 +36,7 @@ def home(request):
     month = datetime.now().strftime("%m")
     year = datetime.now().strftime("%Y")
     day = datetime.now().strftime("%d")
+    
     bids = Bid.objects.exclude(bid_user=user_profile).filter(bidder='N')
     if bids:
         min_amt = min(user_profile.credit_balance, bids[0].bid_qty)
@@ -92,23 +93,30 @@ def recycle(request):
 @login_required
 def go_green_kitty(request):
     trans = Transactions.objects.aggregate(total_price=Sum('green_amount'))
-    total_price =  Project.objects.aggregate(project_price = Sum('amount'))
-    tot =  trans.get('total_price') -  pr.get('project_price')                      
+ 
+  
+                            
     prjs = Project.objects.all()
-    context = {'trans': trans, 'prjs': prjs}
+    pr = Project.objects.aggregate(total_price=Sum('amount'))
+    tot  = trans.get('total_price') - pr.get('total_price')
+    context = {'trans': tot, 'prjs': prjs}
     return render(request, 'green_kitty.html', context)
 
 @login_required
 def reports(request):
     trans = Transactions.objects.aggregate(total_price=Sum('green_amount'))
+    pr = Project.objects.aggregate(total_price=Sum('amount'))
+    tot  = trans.get('total_price') - pr.get('total_price')
     prjs = Project.objects.all()
-    context = {'trans': trans, 'prjs': prjs}
+    context = {'trans': tot, 'prjs': prjs}
     return render(request, 'reports.html', context)
 
 @login_required
 def investments(request):
     trans = Transactions.objects.aggregate(total_price=Sum('green_amount'))
-    context = {'trans': trans}
+    pr = Project.objects.aggregate(total_price=Sum('amount'))
+    tot  = trans.get('total_price') - pr.get('total_price')
+    context = {'trans': tot}
     if request.POST:
         prj_name = request.POST.get('prj_name')
         amount = request.POST.get('amount') 
@@ -141,8 +149,8 @@ def transfer_credit(request):
         up = UserProfile.objects.get(account_number=account_number) 
         up.credit_balance = up.credit_balance + int(amount)
         user.credit_balance = user.credit_balance - int(amount)
-        up.cash_balance = up.cash_balance - int(cash)
-        user.cash_balance = user.cash_balance + int(amount)
+        up.cash_balance = up.cash_balance - int(cash) * int(amount)
+        user.cash_balance = user.cash_balance + int(amount)*int(cash)
         up.save()
         user.save()
         return HttpResponseRedirect('/') 

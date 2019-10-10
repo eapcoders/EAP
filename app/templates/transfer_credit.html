@@ -7,24 +7,19 @@
         font-weight: bold;
     }
 </style>
-<script src="/static/js/jquery.min.js"></script>
+
 <script>
 
     $(document).ready(function () {
         $("#submit_button").click(function () {
             var quant = $("#qty").val()
-            var credit = {{ user.credit_balance }
-        }
+            var credit = {{ user.credit_balance }}
 
                         if (credit - quant < 0) {
             alert("No available credit balance");
             event.preventDefault();
         }
-        if (quant == 0 || credit == "")
-             {
-            alert("Kindly enter correct amount");
-            event.preventDefault();
-        }
+      
 
                 });
             });

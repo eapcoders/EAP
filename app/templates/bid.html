@@ -11,13 +11,14 @@
    <script>
 
     $(document).ready(function () {
-        var availp = {{user.cash_balance}};
+        
+        
+        $("#bid_submit").click(function () {
+            var availp = {{user.cash_balance}};
         var bid_q = $('#bid_qty').val();
         var bid_p = $('#bid_price').val();
         var bid_a = $('#bid_amount').val();
 
-        
-        $("#bid_submit").click(function() {
            if ((availp - (bid_q*bid_p) > 0 )) {
                 $("#bid_form").submit(); 
               } else {
