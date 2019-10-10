@@ -32,18 +32,56 @@
 
     $(document).ready(function () {
         var temp = {{ item.item_price }};
+     var orig = {{ item.item_price }};
                     $('#price').text(temp);
                     $('#total').val(temp);
-                    $("#gogreen").click(function() {
+    $("#gogreen").click(function () {
+                        orig = $("#amount_1").text();
                     if ($("input[type=checkbox]").is(
                         ":checked")) {
-                        temp = Math.ceil(temp);
+                        temp = Math.ceil(orig);
+                        abc = temp - orig;
+                        abc = Math.round( abc * 100) / 100;
+                        $("#carbon").text(abc);
                     } else {
-                        temp = temp;
-                    }
+                        temp = orig;
+                         $("#carbon").text(0)
+        }
+                    temp = Math.round( temp * 100) / 100;
                     $('#price').text(temp);
-                    $('#total').val(temp);
-                });
+        $('#total').val(temp);
+        
+                    });
+        
+
+    $("#qty_1").on('change', function () {
+        var e_quant = $("#qty_1").val();
+        var price = {{ item.item_price }};
+    var amt = e_quant * price;
+    amt = Math.round(amt * 100) / 100;
+    $('#gogreen').prop('checked', false); 
+    $("#amount_1").text(amt);
+    $("#price").text(amt);
+    $("#total").val(amt);
+    
+        });
+
+    $("#submit_button").on('click' , function() {
+        var quant = $("#total").val();
+     
+                        var  credit  = {{user.cash_balance}}
+                        if (credit - quant < 0) {
+                            alert("No cash balance left");
+                            event.preventDefault();
+    }
+    var que = {{ user.credit_balance }} - {{ item.carbon_credits }}
+      if (que< 0) {
+                            alert("No carbon credits balance left");
+                            event.preventDefault();
+    }
+
+    });
+
             });
 </script>
 
@@ -53,26 +91,28 @@
 <h4>Payment </h4>
 <div style="width:750px;float:left;min-height:400px;">
     <form action="/buy-item/{{item.id}}/" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-       
-       <img src="/{{item.item_image}}" alt="August 2019"  width="100px" height="100px">
-       <br />
-       <label>Product</label><span>{{item.item_name}}</span>
-       <br />
-       <label>Price</label><span>{{item.item_price}} EUR</span>
-       <br />
-       <label>Quantity</label><input type="text" name="qty" size="2" />"
-       <br />
+
+        {% csrf_token %}
+
+        <img src="/{{item.item_image}}" alt="August 2019" width="100px" height="100px">
+        <br />
+        <label>Product</label><span>{{item.item_name}}</span>
+        <br />
+        <label>Price</label><span>{{item.item_price}}</span>  EUR
+        <br />
+        <label>Quantity</label><input id="qty_1" type="text" name="qty" size="2" value="1" />"
+        <br />
         <label>Carbon Credit</label><span>{{item.carbon_credits}}</span>
-       <br /> 
-        <label>Amount</label><span id="amount"></span><br />
-        <label><input id ="gogreen" type="checkbox" name="green" value="green"><span style="color:green"> Go Green</span></label><br />
-      
-        <label>Final Amount:</label><span id="price">{{item.item_price}}</span><input type="hidden" name="total_price" id="total" />
+        <br />
+        <label>Amount</label><span id="amount_1">{{item.item_price}}</span>  EUR <br />
+        <label><input id="gogreen" type="checkbox" name="green" value="green"><span style="color:green"> Go Green</span></label><br />
+
+
+        <label>Final Amount:</label><span id="price" >{{item.item_price}}</span> EUR <input type="hidden" name="total_price" id="total" />
         <br />
         <label>Donations: </label><span id="carbon">{{donations}}</span><br />
-        <label></label><input type="submit" value="Place Order" /><input type="button" value="Cancel" />
-       
+        <label></label><input id ="submit_button" type="submit" value="Place Order" /><input type="button" value="Cancel" />
+
     </form>
 </div>
 

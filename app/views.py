@@ -47,6 +47,11 @@ def about_us(request):
     return render(request, 'about_us.html', context)
 
 @login_required
+def contact_us(request):
+    context = {}
+    return render(request, 'contact_us.html', context)
+
+@login_required
 def flight_booking(request):
     context = {}
     return render(request, 'flight_booking.html', context)
@@ -139,15 +144,18 @@ def transfer_credit(request):
 def buy(request, item_id=None):
     item = get_object_or_404(Items, id=item_id)
     user = UserProfile.objects.get(user=request.user)
-    total_carbon_credit = user.credit_balance - item.carbon_credits
-    user.credit_balance = total_carbon_credit
     user.save()
     if request.POST:
         obj = Transactions()
         obj.item = item
-        obj.qty = 1
+        obj.qty = Decimal(request.POST.get('qty', '0.0'))
         obj.total_price = item.item_price * obj.qty
         obj.rounded_price = Decimal(request.POST.get('total_price', '0.0'))
+        total_carbon_credit = user.credit_balance - item.carbon_credits
+        user.credit_balance = total_carbon_credit
+        total_cash_balance = user.cash_balance - obj.rounded_price 
+        user.cash_balance = total_cash_balance
+        user.save()
         obj.green_amount = obj.rounded_price - obj.total_price
         obj.green_points = 0
         obj.user_profile = user
@@ -188,6 +196,7 @@ def bid(request):
 
 @login_required
 def transactions(request):
-    user = UserProfile.objects.get(user=request.user) 
+    user = UserProfile.objects.get(user=request.user)
+
     trans = Transactions.objects.filter(user_profile=user)
     return render(request, 'trans.html', {'trans': trans})

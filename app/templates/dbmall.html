@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 
 {% block head %}
-   <style>
-       label {
-          width: 200px;
-          font-weight: bold;
-          color:black;
-       }
-   </style>
+<style>
+    label {
+        width: 200px;
+        font-weight: bold;
+        color: black;
+    }
+</style>
 
 {% endblock %}
 {% block container %}
+
    <h4>Db Mall</h4>
        <div class="">
              
@@ -20,14 +21,15 @@
                      <label>{{x.item_name}}</label><br />
                      <label>{{x.item_price}} EUR</label>
                      
-                     <a href="/buy-item/{{x.id}}/" >Buy</a>
+                     <a href="/buy-item/{{x.id}}/" class="btn btn-success" style="margin-left:10px">Buy</a>
                   </div>
                  {% endfor %}  
              </form>
        </div>
    <br style="clear:both">"
+
 {% endblock %}
 
-   
+
 
 

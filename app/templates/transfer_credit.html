@@ -1,41 +1,55 @@
 {% extends "base.html" %}
 
 {% block head %}
-   <style>
-       label {
-          width: 200px;
-          font-weight: bold;
-       }
-   </style>
+<style>
+    label {
+        width: 200px;
+        font-weight: bold;
+    }
+</style>
+<script src="/static/js/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+                    $("#submit_button").click(function() {
+                        var quant = $("#qty").val()
+                        var  credit  = {{user.credit_balance}}
+                        if (credit - quant < 0) {
+                            alert("No available credit balance");
+                            event.preventDefault();
+                        }
+                });
+            });
+</script>
 
 {% endblock %}
 {% block container %}
-   <h4>Transfer Carbon Cedits</h4>
-   <div style="width:650px;float:left;padding:5px;color:black;text-align:justify;margin-right:20px;">
-       <div style="float:left;">
-          <form action="/transfer-credit/" method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          <select name="account">
-             <option value="-1">Select</option>                  
-             {% for x in user_profiles %}
-             <option value="{{x.account_number}}">{{x.account_number}}</option>
-             {% endfor %}
-          </select><br />
-          <label>Quantity:</label><input name="qty" type="text" /><br /> 
-          <label>Price</label><input name="amount" type="text" /><br />
-  <label></label><input type="submit" value="Submit" /> <input type="submit" value="Cancel" /><br />
-          </form>  
-       </div> 
-   </div>
-    <div style="width:400px;border:1px solid #2C2424;float:left;padding:5px;;color:black;">
-            <!-- <h6 style="background-color:#2C2424;color:white;padding:5px;">Useful links</h4>-->
-            <label>Account Name: </label> {{user.account_name}}<br />
-            <label>Available Cash Balance: </label> {{user.cash_balance}}<br />
-            <label>Available Carbon Credit: </label> {{user.credit_balance}}<br />
-   </div>
-   <br style="clear:both">"
+<h4>Transfer Carbon Cedits</h4>
+<div style="width:650px;float:left;padding:5px;color:black;text-align:justify;margin-right:20px;">
+    <div style="float:left;">
+        <form action="/transfer-credit/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <select name="account">
+                <option value="-1">Select</option>
+                {% for x in user_profiles %}
+                <option value="{{x.account_number}}">{{x.account_number}}</option>
+                {% endfor %}
+            </select><br />
+            <label>Quantity:</label><input id="qty" name="qty" type="text" /><br />
+            <label>Price</label><input name="amount" type="text" /><br />
+            <label></label><input id="submit_button" type="submit" value="Submit" /> <input type="submit" value="Cancel" /><br />
+        </form>
+    </div>
+</div>
+<div style="width:400px;border:1px solid #2C2424;float:left;padding:5px;;color:black;">
+    <!-- <h6 style="background-color:#2C2424;color:white;padding:5px;">Useful links</h4>-->
+    <label>Account Name: </label> {{user.account_name}}<br />
+    <label>Available Cash Balance: </label> {{user.cash_balance}}<br />
+    <label>Available Carbon Credit: </label> {{user.credit_balance}}<br />
+</div>
+<br style="clear:both">"
 {% endblock %}
 
-   
+
 
 

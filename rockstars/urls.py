@@ -30,6 +30,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', view.home, name='home'),
     url(r'^about-us/', view.about_us),
+    url(r'^contact-us/', view.contact_us),
     url(r'^flight-booking/', view.flight_booking),
     url(r'^train-booking/', view.train_booking),
     url(r'^bus-booking/', view.bus_booking),
