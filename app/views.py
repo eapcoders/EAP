@@ -129,9 +129,12 @@ def transfer_credit(request):
     if request.POST:
         account_number = request.POST.get('account')
         amount = request.POST.get('amount')
+        cash = request.POST.get('cash_amount')
         up = UserProfile.objects.get(account_number=account_number) 
         up.credit_balance = up.credit_balance + int(amount)
         user.credit_balance = user.credit_balance - int(amount)
+        up.cash_balance = up.cash_balance - int(cash)
+        user.cash_balance = user.cash_balance + int(amount)
         up.save()
         user.save()
         return HttpResponseRedirect('/') 
