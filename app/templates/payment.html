@@ -3,14 +3,14 @@
 {% block head %}
 <style>
     label {
-        width: 200px;
+        width: 170px;
         font-weight: bold;
         color: black;
     }
     span { 
           color: black;
-          width: 200px;
-          height: 200px;
+          width: 100px;
+          height: 100px;
    }
    .left {
        float: left;
@@ -24,8 +24,7 @@
        font-color: #000;
        boder:1px solid #000;
        padding:5px;
-       text-align:center;
-       width:200px; 
+       text-align:center; 
     }
 </style>
 <script src="/static/js/jquery.min.js"></script>
@@ -52,48 +51,53 @@
 {% endblock %}
 {% block container %}
 
-
 <h4>Payment </h4>
-<div>
+<div style="width:750px;float:left;">
     <form action="/buy-item/{{item.id}}/" method="post" enctype="multipart/form-data">
     <table>{% csrf_token %}
        <tr>
-       <td> <img src="/{{item.item_image}}" alt="August 2019" class="left" width="150px" height="100px">
+       <td> <img src="/{{item.item_image}}" alt="August 2019" class="left" width="100px" height="100px">
        </td>
        <td> 
-        Name <br >
+        <b>Product </b><br >
         {{item.item_name}}
        </td>
        <td>
-        Amount <br />{{item.item_price}}
+        <b>Price</b> <br />{{item.item_price}} EUR
+       </td>
+       <td> 
+        <b>Quantity</b><input type="text" name="qty" />"
        </td>
        <td>
-        Carbon Credit: <br/ > {{item.carbon_credits}}
+        Amount <br/ > <span id="amount"></span>
        </td>
       </tr>
     
       <tr> 
-       <td> 
-         <label><input id ="gogreen" type="checkbox" name="green" value="green" checked>Go Green</label><br />
+       <td colspan=2> 
+         <label><input id ="gogreen" type="checkbox" name="green" value="green"><span style="color:green"> Go Green</span></label><br />
+       </td>
+       <td colspan=2>
+        <label>Final Amount:</label><span id="price">{{item.item_price}}</span><input type="hidden" name="total_price" id="total" />
+       </td>
+       <td>
+      <label>Donations: </label><span id="carbon">{{donations}}</span><br />
        </td>
        </tr>
        <tr>
-       <td>
-        <label>Total Prices:</label><span id="price">{{item.item_price}}</span><input type="hidden" name="total_price" id="total" />
-       </td>
-       </tr>
-       <tr>
-       <td>
-      <label>Total Carbon Credits: </label><span id="carbon">{{total_carbon_credit}}</span><br />
-       </td>
-       </tr>
-       <tr>
-       <td>
-       <input type="submit" value="Place Order" />
+       <td colspan=5>
+       <input type="submit" value="Place Order" /><input type="button" value="Cancel" />
        </td> 
        </tr>
     </table>
     </form>
+</div>
+
+<div style="width:350px;border:1px solid #2C2424;float:left;margin-left:10px;padding:5px;;color:black;">
+            <!-- <h6 style="background-color:#2C2424;color:white;padding:5px;">Useful links</h4>-->
+            <label>Account Name: </label> {{user.account_name}}<br />
+            <label>Available Cash Balance: </label> {{user.cash_balance}}<br />
+            <label>Available Carbon Credit: </label> {{user.credit_balance}}<br />
 </div>
 <br style="clear:both">"
 {% endblock %}
