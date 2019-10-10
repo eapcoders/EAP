@@ -45,6 +45,11 @@ def about_us(request):
     return render(request, 'about_us.html', context)
 
 @login_required
+def contact_us(request):
+    context = {}
+    return render(request, 'contact_us.html', context)
+
+@login_required
 def flight_booking(request):
     context = {}
     return render(request, 'flight_booking.html', context)
