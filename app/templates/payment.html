@@ -44,7 +44,15 @@
                     }
                     $('#price').text(temp);
                     $('#total').val(temp);
-                });
+                    });
+        
+            var lastValue = '';
+    $("#qty_1").on('change keyup paste mouseup', function () {
+        var e_quant = $("#qty_1").val();
+        var price = {{ item.item_price }};
+       var amt = e_quant * price;
+    $('#amount_1').text(amt);
+        });
             });
 </script>
 
@@ -66,10 +74,10 @@
         <b>Price</b> <br />{{item.item_price}} EUR
        </td>
        <td> 
-        <b>Quantity</b><input type="text" name="qty" />"
+        <b>Quantity</b><br/><input id ="qty_1" type="text" name="qty" />"
        </td>
        <td>
-        Amount <br/ > <span id="amount"></span>
+        Amount <br/ > <span id="amount_1"></span>
        </td>
       </tr>
     
