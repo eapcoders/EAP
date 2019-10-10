@@ -10,56 +10,45 @@
 
 {% endblock %}
 {% block container %}
-   <h4>Petrol Pump</h4>
+   <h4>Investments</h4>
    <div style="width:650px;float:left;padding:5px;color:black;text-align:justify;margin-right:20px;">
        <div class="">
              <form action="/investments/" method="post" enctype="multipart/form-data">
-                <table> 
-                <tr>
-                <td>
-                   Project Name<br>
-                   <input type="text" name="prj_name" />
-                </td>
-                <td>
-                   Category<br />
+                <label>
+                   Project Name</label>
+                   <input type="text" name="prj_name" /><br />
+                
+                <label>
+                   Category</label>
                    {% csrf_token %}
                    <select name="category">
                      <option value="BLOGAS">BLOGAS</option>
                      <option value="SOLAR">SOLAR</option>
                      <option value="MIND">MIND</option>
                    </select>
-                </td>
-                <td>
-                   Region<br />
+                </br>
+                <label>
+                   Region
+                </label>
                    <select name="region">
                      <option value="APAC">APAC</option>
                      <option value="EMEA">EMEA</option>
                      <option value="AMERICAS">AMERICAS</option>
                    </select>
-                </td>
-                <td>
-                   Amount<br /> 
-                   <input name="amount" type="text" /><br />
-                   ({{trans}})
-                </td> 
-                </tr>
-                <tr>
-                <td>
+                </br>
+                <label>
+                   Amount
+                </label> 
+                <input name="amount" type="text" /><br />
+                ({{trans}})
+                 
                 <input type="submit" value="submit" />
-                </td>
-                </tr>
-                </table>
+                
           </form>
                      
        </div>
    </div>
    <div style="width:400px;border:1px solid #2C2424;float:left;padding:5px;;color:black;">
-            <h6 style="background-color:#2C2424;color:white;padding:5px;">Useful links</h4>
-            <a href="/flight-booking/">Flight Booking</a><br />
-            <a href="/train-booking/">Train Booking</a><br />
-            <a href="/bus-booking/">Bus Booking</a><br />
-            <a href="/fertilizers/">Fertilizer</a><br />
-            <a href="/green-invst-kitty/">Manage green investmet kitty</a> 
    </div>
    <br style="clear:both">"
 {% endblock %}

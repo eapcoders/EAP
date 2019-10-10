@@ -18,12 +18,25 @@
 
 {% endblock %}
 {% block container %}
-   <h4>Manage Kitty</h4>
+   <h4>Reports</h4>
    <div style="padding:5px;color:black;text-align:justify;margin-right:20px;">
        <div class="">
-             <label>ACCMULATED AMOUNT: </label> {{trans}}<br />
-
-             <a href="/reports/">Reports</a> | <a href="/investments/">Investments</a>  <br />
+           <table>
+                <tr>
+                   <th>Project Name</th>
+                   <th>Category</th>
+                   <th>Region</th>
+                   <th>Amount</th>
+                </tr>
+                {% for x in prjs %}
+                <tr>
+                   <td>{{x.project_name}}</td>
+                   <td>{{x.category}}</td>
+                   <td>{{x.region}}</td>
+                   <td>{{x.amount}}</td>
+                </tr>
+                {% endfor %}
+             </table>
        </div>
    </div>
    <br style="clear:both">"

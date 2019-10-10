@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block head %}
+   <style>
+       label {
+          width: 200px;
+          font-weight: bold;
+       }
+   </style>
+   <script src="/static/js/jquery.min.js"></script>
+   <script>
+
+    $(document).ready(function () {
+        var availp = {{user.cash_balance}};
+        var bid_q = $('#bid_qty').val();
+        var bid_p = $('#bid_price').val();
+        var bid_a = $('#bid_amount').val();
+
+        
+        $("#bid_submit").click(function() {
+           if ((availp - (bid_q*bid_p) > 0 )) {
+                $("#bid_form").submit(); 
+              } else {
+                 alert('User Not having cash to bid');
+              }
+                   
+           });
+        });
+   </script>
+{% endblock %}
+{% block container %}
+   <h4>Bid Details</h4>
+   <div style="width:650px;float:left;padding:5px;color:black;text-align:justify;margin-right:20px;">
+       <div class="">
+             <form action="/bid/" id="bid_form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Bid Quantity</label><input id="bid_qty" type="text" name="bid_qty" />
+                <br />
+                <label>
+                   Bid Price
+                </label><input type="text" name="bid_price" id="bid_price" /><br />
+                <label>
+                   Bid Amount
+                </label><input name="bid_amount" type="text" id="bid_amount" /><br />
+                <label>Available Cash Balance:</label>{{user.cash_balance}}
+                <br />
+                <label></label><input id="bid_submit" type="button" value="submit" />
+          </form>
+                     
+       </div>
+   </div>
+   <div style="width:400px;float:left;padding:5px;;color:black;">
+   </div>
+   <br style="clear:both">"
+{% endblock %}
+
+   
+
+

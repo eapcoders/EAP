@@ -57,6 +57,7 @@
                                     <li class="nav-item"><a class="nav-link" href="/dbmall/">Db Mall</a></li>
                                 </ul>
                             </li>
+                            {% if request.user.is_superuser %}<li class="nav-item"><a class="nav-link" href="/go-green-kitty//">Manage Kitty</a></li>{% endif %}
                             <li class="nav-item"><a class="nav-link" href="/about-us/">About Us</a></li> 
                             <li class="nav-item"><a class="nav-link" href="/contact-us/">Contact</a></li>
                         </ul>
