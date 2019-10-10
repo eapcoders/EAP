@@ -29,15 +29,15 @@ class Items(models.Model):
     item_id = models.CharField(max_length=150)
     item_name = models.CharField(max_length=150)
     item_image = models.ImageField(upload_to='static/image/item')
-    item_price = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=2) 
+    item_price = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=3) 
     carbon_credits = models.IntegerField()
 
 class Transactions(models.Model):
     item = models.ForeignKey(Items, related_name="db_user",on_delete=models.CASCADE)
     qty = models.IntegerField()
-    total_price = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=2)
-    rounded_price = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=2)
-    green_amount = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=2)
+    total_price = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=3)
+    rounded_price = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=3)
+    green_amount = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=3)
     green_points = models.IntegerField()
     user_profile = models.ForeignKey(UserProfile, related_name="user_profile",on_delete=models.CASCADE) 
 
