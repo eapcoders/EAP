@@ -41,7 +41,7 @@
             <select name="account" >
                 <option value="-1">Select</option>
                 {% for x in user_profiles %}
-                <option value="{{x.account_number}}" selected>{{x.account_number}}</option>
+                <option value="{{x.account_number}}" selected>{{x.account_number}}-{{x.account_name}}</option>
                 {% endfor %}
             </select><br />
             <label>Credit Quantity:</label><input id="qty" name="amount" type="text" /><br />
