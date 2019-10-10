@@ -10,35 +10,28 @@
 
 {% endblock %}
 {% block container %}
-   <h4>Welcome to DBOI Pune</h4>
+   <h4>Transfer Carbon Cedits</h4>
    <div style="width:650px;float:left;padding:5px;color:black;text-align:justify;margin-right:20px;">
-       <div style="float:left;"">
-             <label>User: </label> {{user.user}}<br />
-             <label>Account Name: </label> {{user.account_name}}<br />
-             <label>Carbon Credit: </label> {{user.credit_balance}}<br />
-       </div>
        <div style="float:left;">
           <form action="/transfer-credit/" method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <select name="account">
+             <option value="-1">Select</option>                  
              {% for x in user_profiles %}
              <option value="{{x.account_number}}">{{x.account_number}}</option>
              {% endfor %}
-          </select>
-          <input name="amount" type="text" />
-          <input type="submit" value="submit" />
+          </select><br />
+          <label>Quantity:</label><input name="qty" type="text" /><br /> 
+          <label>Price</label><input name="amount" type="text" /><br />
+  <label></label><input type="submit" value="Submit" /> <input type="submit" value="Cancel" /><br />
           </form>  
        </div> 
    </div>
     <div style="width:400px;border:1px solid #2C2424;float:left;padding:5px;;color:black;">
-            <!-- <h6 style="background-color:#2C2424;color:white;padding:5px;">Useful links</h4>
-            <a href="/flight-booking/">Flight Booking</a><br />
-            <a href="/train-booking/">Train Booking</a><br />
-            <a href="/bus-booking/">Bus Booking</a><br />
-            <a href="/fertilizers/">Fertilizer</a><br />
-            <a href="/green-invst-kitty/">Manage green investmet kitty</a>
-            -->
-            <a href="/transfer-credit/">Transfer Carbon Credits</a> 
+            <!-- <h6 style="background-color:#2C2424;color:white;padding:5px;">Useful links</h4>-->
+            <label>Account Name: </label> {{user.account_name}}<br />
+            <label>Available Cash Balance: </label> {{user.cash_balance}}<br />
+            <label>Available Carbon Credit: </label> {{user.credit_balance}}<br />
    </div>
    <br style="clear:both">"
 {% endblock %}
