@@ -27,6 +27,14 @@
                    
            });
         });
+        $("#bid_price").change(function(){   // 1st
+           // do your code here
+           // When your element is already rendered
+           var bid_qty = $('#bid_qty').val();
+           var bid_price = $('#bid_price').val();
+           $('#bid_amount').val(bid_price* bid_qty);
+
+        });
    </script>
 {% endblock %}
 {% block container %}
@@ -39,11 +47,11 @@
                 <br />
                 <label>
                    Bid Price
-                </label><input type="text" name="bid_price" id="bid_price" /><br />
+                </label><input type="text" name="bid_price" id="bid_price" /> EUR<br />
                 <label>
                    Bid Amount
-                </label><input name="bid_amount" type="text" id="bid_amount" /><br />
-                <label>Available Cash Balance:</label>{{user.cash_balance}}
+                </label><input name="bid_amount" type="text" id="bid_amount" readonly /> EUR<br />
+                <label>Available Cash Balance:</label>{{user.cash_balance}} EUR
                 <br />
                 <label></label><input id="bid_submit" type="button" value="submit" />
           </form>
