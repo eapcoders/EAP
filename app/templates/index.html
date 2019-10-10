@@ -42,7 +42,7 @@
                    {% csrf_token %}
 
             {% if bids %}
-            Available Bids
+            <h5>Available Bids</h5>
             <table> 
             <tr><th>Bidder</th><th>Bid Qty</th><th>Bid Price</th><th>Accept Qty</th><th>Accept Amount</th><th>Action</th></tr>
             {% for x in bids %}
@@ -51,7 +51,7 @@
              <td>{{x.bid_qty}}</td>
              <td>{{x.price}}</td>
              <td><input type="text" name="accept_qty" size=4 value="{{min_amt}}"></td><input type="hidden" name="bid" value="{{x.id}}" />
-             <td>{{x.amount}}</td><input type="hidden" name="acpt_qty" value="{{min_amt}}" /><input type="hidden" name="acpt_amt" value="{{x.amount}}" />
+             <td>{{x.amount}}</td><input type="hidden" name="acpt_qty" value="{{min_amt}}" /><input type="hidden" id="id_acpt_amt" name="acpt_amt" value="{{x.amount}}" />
              <td><input type="submit" value="Accept Bid" /></td>
              </tr>
             {% endfor %}
