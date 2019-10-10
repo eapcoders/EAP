@@ -92,6 +92,8 @@ def recycle(request):
 @login_required
 def go_green_kitty(request):
     trans = Transactions.objects.aggregate(total_price=Sum('green_amount'))
+    total_price =  Project.objects.aggregate(project_price = Sum('amount'))
+    tot =  trans.get('total_price') -  pr.get('project_price')                      
     prjs = Project.objects.all()
     context = {'trans': trans, 'prjs': prjs}
     return render(request, 'green_kitty.html', context)
