@@ -48,4 +48,11 @@ class Project(models.Model):
     amount = models.IntegerField(default=500)
 
 
-   
+class Bid(models.Model):
+    bid_user = models.ForeignKey(UserProfile, related_name="bid_user_profile",on_delete=models.CASCADE)
+    bid_qty = models.IntegerField(default=500)
+    price = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=2)
+    amount = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=2) 
+    bidder = models.CharField(max_length=200)
+
+  

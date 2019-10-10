@@ -22,7 +22,7 @@ from django.views.generic import TemplateView
 from datetime import date, datetime
 
 from calendar import monthrange
-from .models import UserProfile, Items, Transactions, Project
+from .models import UserProfile, Items, Transactions, Project, Bid
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
@@ -90,7 +90,7 @@ def reports(request):
     trans = Transactions.objects.aggregate(total_price=Sum('green_amount'))
     prjs = Project.objects.all()
     context = {'trans': trans, 'prjs': prjs}
-    return render(request, 'green_kitty.html', context)
+    return render(request, 'reports.html', context)
 
 @login_required
 def investments(request):
@@ -152,6 +152,27 @@ def buy(request, item_id=None):
         obj.save() 
         return HttpResponseRedirect('/transactions/') 
     return render(request, 'payment.html', {'item': item, "user":user})
+
+@login_required
+def bid(request):
+    trans = Transactions.objects.aggregate(total_price=Sum('green_amount'))
+    user = UserProfile.objects.get(user=request.user)
+    context = {'trans': trans,'user':user}
+    if request.POST:
+        bid_qty = request.POST.get('bid_qty')
+        bid_price= request.POST.get('bid_price')
+        bid_amount = request.POST.get('bid_amount')
+        
+        prj_obj = Bid()
+        prj_obj.bid_qty = bid_qty
+        prj_obj.price = Decimal(bid_price)
+        prj_obj.amount = Decimal(bid_amount)
+        prj_obj.bid_user = user
+        prj_obj.bidder = 'Y'
+        prj_obj.save()
+        return HttpResponseRedirect('/')
+
+    return render(request, 'bid.html', context)
 
 @login_required
 def transactions(request):
