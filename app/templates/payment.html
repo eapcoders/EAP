@@ -33,14 +33,15 @@
 
     $(document).ready(function () {
         var temp = {{ item.item_price }};
+     var orig = {{ item.item_price }};
                     $('#price').text(temp);
                     $('#total').val(temp);
                     $("#gogreen").click(function() {
                     if ($("input[type=checkbox]").is(
                         ":checked")) {
-                        temp = Math.ceil(temp);
+                        temp = Math.ceil(orig);
                     } else {
-                        temp = temp;
+                        temp = orig;
                     }
                     $('#price').text(temp);
                     $('#total').val(temp);

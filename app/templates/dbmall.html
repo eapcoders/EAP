@@ -1,33 +1,33 @@
 {% extends "base.html" %}
 
 {% block head %}
-   <style>
-       label {
-          width: 200px;
-          font-weight: bold;
-          color:black;
-       }
-   </style>
+<style>
+    label {
+        width: 200px;
+        font-weight: bold;
+        color: black;
+    }
+</style>
 
 {% endblock %}
 {% block container %}
-   <h4>Db Mall</h4>
-       <div class="">
-             
-                {% for x in items %}
-                  <div style="float:left;width:200px;">
-                     <img src="/{{x.item_image}}" alt="August 2019" class="left" width="150px" height="100px">
-                     <label>{{x.item_name}}</label><br />
-                     <label>{{x.item_price}}</label>
-                     
-                     <a href="/buy-item/{{x.id}}/" >Buy</a>
-                  </div>
-                 {% endfor %}  
-             </form>
-       </div>
-   <br style="clear:both">"
+<h4>Db Mall</h4>
+<div class="">
+
+    {% for x in items %}
+    <div style="float:left;width:200px;">
+        <img src="/{{x.item_image}}" alt="August 2019" class="left" width="150px" height="100px">
+        <label>{{x.item_name}}</label><br />
+        <label>{{x.item_price}}</label>
+
+        <a href="/buy-item/{{x.id}}/" class="btn btn-success" style="margin-left:10px">Buy</a>
+    </div>
+    {% endfor %}
+    </form>
+</div>
+<br style="clear:both">"
 {% endblock %}
 
-   
+
 
 
