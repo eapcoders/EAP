@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^dbmall/', view.dbmall),
     url(r'^reports/', view.reports),
     url(r'^bid/', view.bid),
+    url(r'^accept-bid/(?P<user_id>\d+)/$', view.accept_bid),
     url(r'^transactions/', view.transactions),
     url(r'^investments/', view.investments),
     url(r'^transfer-credit/', view.transfer_credit),

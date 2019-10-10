@@ -54,5 +54,6 @@ class Bid(models.Model):
     price = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=2)
     amount = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=2) 
     bidder = models.CharField(max_length=200)
-
+    #accepted =  models.ForeignKey(UserProfile, related_name="accepted_user_profile",on_delete=models.CASCADE,blank=True,null=True)
+    accepted_flag = models.CharField(max_length=200)
   
