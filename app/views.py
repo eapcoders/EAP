@@ -156,7 +156,7 @@ def buy(request, item_id=None):
         obj.user_profile = user
         obj.save() 
         return HttpResponseRedirect('/transactions/') 
-    return render(request, 'payment.html', {'item': item, "total_carbon_credit":total_carbon_credit})
+    return render(request, 'payment.html', {'item': item, "user":user})
 
 @login_required
 def transactions(request):
