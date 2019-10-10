@@ -7,49 +7,57 @@
           font-weight: bold;
        }
    </style>
-
+<script>
+    $(document).ready(function () {
+    var trans_data = {{ trans.total_price }}
+    trans_data = Math.round(trans_data * 100) / 100;
+    $("#trans_").text(trans_data);
+     });
+        
+</script>
 {% endblock %}
 {% block container %}
    <h4>Investments</h4>
    <div style="width:650px;float:left;padding:5px;color:black;text-align:justify;margin-right:20px;">
        <div class="">
-             <form action="/investments/" method="post" enctype="multipart/form-data">
-                <label>
-                   Project Name</label>
-                   <input type="text" name="prj_name" /><br />
-                
-                <label>
-                   Category</label>
-                   {% csrf_token %}
-                   <select name="category">
-                     <option value="BLOGAS">BLOGAS</option>
-                     <option value="SOLAR">SOLAR</option>
-                     <option value="MIND">MIND</option>
-                   </select>
-                </br>
-                <label>
+           <form action="/investments/" method="post" enctype="multipart/form-data">
+               <label>
+                   Project Name
+               </label>
+               <input type="text" name="prj_name" /><br />
+
+               <label>
+                   Category
+               </label>
+               {% csrf_token %}
+               <select name="category">
+                   <option value="BLOGAS">BLOGAS</option>
+                   <option value="SOLAR">SOLAR</option>
+                   <option value="MIND">MIND</option>
+               </select>
+               </br>
+               <label>
                    Region
-                </label>
-                   <select name="region">
-                     <option value="APAC">APAC</option>
-                     <option value="EMEA">EMEA</option>
-                     <option value="AMERICAS">AMERICAS</option>
-                   </select>
-                </br>
-                <label>
+               </label>
+               <select name="region">
+                   <option value="APAC">APAC</option>
+                   <option value="EMEA">EMEA</option>
+                   <option value="AMERICAS">AMERICAS</option>
+               </select>
+               </br>
+               <label>
                    Amount
-                </label> 
-                <input name="amount" type="text" /><br />
-                ({{trans}})
-                 
-                <input type="submit" value="submit" />
-                
-          </form>
+               </label>
+               <input name="amount" type="text" /> ({{trans.total_price|floatformat:2}})
+               <br />
+
+               <input type="submit" value="submit" style="margin-left:200px" />
+
+           </form>
                      
        </div>
    </div>
-   <div style="width:400px;border:1px solid #2C2424;float:left;padding:5px;;color:black;">
-   </div>
+  
    <br style="clear:both">"
 {% endblock %}
 
