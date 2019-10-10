@@ -1,19 +1,32 @@
 {% extends "base.html" %}
 
 {% block head %}
-   <style>
-       label {
-          width: 200px;
-          font-weight: bold;
-       }
-   </style>
+<style>
+    label {
+        width: 200px;
+        font-weight: bold;
+    }
+</style>
+<script src="/static/js/jquery.min.js"></script>
 <script>
+
+ 
+
     $(document).ready(function () {
-    var trans_data = {{ trans.total_price }}
-    trans_data = Math.round(trans_data * 100) / 100;
-    $("#trans_").text(trans_data);
-     });
+        $("#submit_button").click(function () {
+            var qw = $("#data1").val()
+            var credit = {{trans}}
+
+             if (credit - qw < 0) {
+            alert("No available  balance");
+            event.preventDefault();
+        }
         
+
+                });
+            });
+</script>
+
 </script>
 {% endblock %}
 {% block container %}
@@ -48,19 +61,19 @@
                <label>
                    Amount
                </label>
-               <input name="amount" type="text" /> ({{trans.total_price|floatformat:2}})
+               <input name="amount" id="data1" type="text" /> ({{trans|floatformat:2}})
                <br />
 
-               <input type="submit" value="submit" style="margin-left:200px" />
+               <input id ="submit_button" type="submit" value="submit" style="margin-left:200px" />
 
            </form>
-                     
+
        </div>
    </div>
-  
+
    <br style="clear:both">"
 {% endblock %}
 
-   
+
 
 

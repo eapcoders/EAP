@@ -57,24 +57,29 @@
     $("#qty_1").on('change', function () {
         var e_quant = $("#qty_1").val();
         var price = {{ item.item_price }};
+    var cc = {{ item.carbon_credits }};
     var amt = e_quant * price;
+    var t_amt = e_quant * cc;
     amt = Math.round(amt * 100) / 100;
+  
     $('#gogreen').prop('checked', false); 
     $("#amount_1").text(amt);
     $("#price").text(amt);
     $("#total").val(amt);
+    $("#carbon_credit").text(t_amt);
     
         });
 
     $("#submit_button").on('click' , function() {
         var quant = $("#total").val();
+        var t_quant =  $("#carbon_credit").text();
      
                         var  credit  = {{user.cash_balance}}
                         if (credit - quant < 0) {
                             alert("No cash balance left");
                             event.preventDefault();
     }
-    var que = {{ user.credit_balance }} - {{ item.carbon_credits }}
+    var que = {{ user.credit_balance }} - t_quant;
       if (que< 0) {
                             alert("No carbon credits balance left");
                             event.preventDefault();
@@ -102,7 +107,7 @@
         <br />
         <label>Quantity</label><input id="qty_1" type="text" name="qty" size="2" value="1" />"
         <br />
-        <label>Carbon Credit</label><span>{{item.carbon_credits}}</span>
+        <label>Carbon Credit</label><span id="carbon_credit">{{item.carbon_credits}}</span>
         <br />
         <label>Amount</label><span id="amount_1">{{item.item_price}}</span>  EUR <br />
         <label><input id="gogreen" type="checkbox" name="green" value="green"><span style="color:green"> Go Green</span></label><br />
