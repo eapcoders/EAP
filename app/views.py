@@ -36,8 +36,14 @@ def home(request):
     month = datetime.now().strftime("%m")
     year = datetime.now().strftime("%Y")
     day = datetime.now().strftime("%d")
+    bids = Bid.objects.exclude(bid_user=user_profile).filter(bidder='N')
+    if bids:
+        min_amt = min(user_profile.credit_balance, bids[0].bid_qty)
+    else:
+        min_amt = user_profile.credit_balance
+ 
     print ("day ", day)
-    context.update({'user_profile': user_profile})
+    context.update({'user_profile': user_profile,'bids':bids,'min_amt':min_amt})
     return render(request, 'index.html', context)
 
 def about_us(request):
@@ -164,6 +170,26 @@ def buy(request, item_id=None):
         return HttpResponseRedirect('/transactions/') 
     return render(request, 'payment.html', {'item': item, "user":user})
 
+def accept_bid(request, user_id):
+    logged_user = UserProfile.objects.get(user=request.user)
+    user = get_object_or_404(UserProfile, id=user_id)
+    if request.POST:
+        acpt_qty = request.POST.get('acpt_qty')
+        acpt_amt = request.POST.get('acpt_amt')
+        bid = request.POST.get('bid')
+        logged_user.credit_balance = logged_user.credit_balance - int(acpt_qty)
+        logged_user.cash_balance = logged_user.cash_balance + Decimal(acpt_amt)
+        user.credit_balance = user.credit_balance + int(acpt_qty)
+        user.cash_balance = user.cash_balance - Decimal(acpt_amt)
+        bid = Bid.objects.get(id=bid)
+        #bid.accepted = user
+        bid.accepted_flag = 'Y'
+        bid.bidder = 'Y'
+        bid.save()
+        logged_user.save()
+        user.save()
+        return HttpResponseRedirect('/')
+
 @login_required
 def bid(request):
     trans = Transactions.objects.aggregate(total_price=Sum('green_amount'))
@@ -180,7 +206,19 @@ def bid(request):
         prj_obj.amount = Decimal(bid_amount)
         prj_obj.bid_user = user
         prj_obj.bidder = 'Y'
+        #prj_obj.accepted = user
+        prj_obj.accepted_flag = 'N'
         prj_obj.save()
+        sellers = UserProfile.objects.filter(credit_balance__gte=0).exclude(user=request.user)
+        for x in sellers:
+            prj_obj = Bid()
+            prj_obj.bid_qty = bid_qty
+            prj_obj.price = Decimal(bid_price)
+            prj_obj.amount = Decimal(bid_amount)
+            prj_obj.bid_user = UserProfile.objects.get(user=x.user)
+            prj_obj.bidder = 'N'
+            prj_obj.save() 
+
         return HttpResponseRedirect('/')
 
     return render(request, 'bid.html', context)
