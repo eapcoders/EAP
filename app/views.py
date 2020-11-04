@@ -33,17 +33,14 @@ from django.db.models import Sum
 def home(request):
     context = {}
     user_profile = UserProfile.objects.get(user=request.user)
-    month = datetime.now().strftime("%m")
-    year = datetime.now().strftime("%Y")
-    day = datetime.now().strftime("%d")
-    
+    current_date = datetime.now()
+    month, year, day = current_date.strftime("%m"), current_date.now().strftime("%Y"), current_date.now().strftime("%d")
     bids = Bid.objects.exclude(bid_user=user_profile).filter(bidder='N')
     if bids:
         min_amt = min(user_profile.credit_balance, bids[0].bid_qty)
     else:
         min_amt = user_profile.credit_balance
  
-    print ("day ", day)
     context.update({'user_profile': user_profile,'bids':bids,'min_amt':min_amt})
     return render(request, 'index.html', context)
 
